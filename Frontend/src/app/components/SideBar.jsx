@@ -193,7 +193,7 @@ const Sidebar = () => {
           })}
         </div>
 
-        <div className="mx-2.5 bg-white/[0.06]"></div>
+        <div className="mx-1 border-b border-white/[0.06] bg-white/[0.06]"></div>
 
         <div className="px-3.5 py-3.5">
           {userData ? (

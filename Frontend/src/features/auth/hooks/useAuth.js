@@ -10,19 +10,20 @@ import {
 export function useAuth() {
   const dispatch = useDispatch();
 
-  async function handleLogin(token) {
+  async function handleGetMe() {
     try {
-      const data = await login(token);
+      const data = await getMe();
+      dispatch(setUserData(data.user));
       return data;
     } catch (error) {
       throw error;
     }
   }
 
-  async function handleGetMe() {
+  async function handleLogin(token) {
     try {
-      const data = await getMe();
-      dispatch(setUserData(data.user));
+      const data = await login(token);
+      await handleGetMe();
       return data;
     } catch (error) {
       throw error;
