@@ -29,7 +29,7 @@ export async function getConversation(req, res) {
     // GET ALL CONVERSATION OF USER
     const allConversation = await conversationModel.find({
       user: userID,
-    });
+    }).sort({ updatedAt: -1 });
 
     res
       .status(200)

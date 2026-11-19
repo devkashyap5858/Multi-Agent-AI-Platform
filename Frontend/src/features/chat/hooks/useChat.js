@@ -3,6 +3,7 @@ import { createConversation, getConversation } from "../services/chat.api.js";
 import {
   addConversation,
   setConversation,
+  setSelectConversation,
 } from "../../../app/redux/conversation.slice.js";
 
 export function useChat() {
@@ -12,6 +13,7 @@ export function useChat() {
     try {
       const data = await createConversation();
       dispatch(addConversation(data.conversation));
+      dispatch(setSelectConversation(data.conversation));
       return data;
     } catch (error) {
       throw error;

@@ -8,7 +8,6 @@ import ArtiFact from "../components/ArtiFact.jsx";
 const Home = () => {
   const { userData } = useSelector((state) => state.auth);
 
-  console.log(userData);
   return (
     <div className="h-screen flex bg-[#0d0f14] text-white overflow-hidden">
       <Sidebar/>

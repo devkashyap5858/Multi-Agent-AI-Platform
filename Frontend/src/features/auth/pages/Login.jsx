@@ -5,9 +5,12 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../../../../utils/firebase.js";
 import { setUserData } from "../../../app/redux/auth.slice.js";
 import { useDispatch } from "react-redux";
+import { useChat } from "../../chat/hooks/useChat.js";
 
 const Login = () => {
   const dispatch = useDispatch();
+
+  const { handleGetConversation } = useChat();
 
   const { handleLogin } = useAuth();
 
@@ -15,6 +18,7 @@ const Login = () => {
     try {
       const data = await handleLogin(token);
       dispatch(setUserData(data));
+      handleGetConversation();
     } catch (error) {
       console.log(error);
     }

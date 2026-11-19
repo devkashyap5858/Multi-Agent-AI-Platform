@@ -59,7 +59,7 @@ export async function login(req, res) {
 export async function logOut(req, res) {
   try {
     // GET SESSION ID FROM COOKIE
-    const sessionID = req.cookie.session;
+    const sessionID = req.cookies.session;
 
     // DELETE SESSION ID FROM REDIS
     await redis.del(`session-${sessionID}`);

@@ -11,9 +11,18 @@ export async function login(token) {
 
 export async function getMe() {
   try {
-    const res = await api.get("api/getme")
-    return res.data
+    const res = await api.get("api/getme");
+    return res.data;
   } catch (error) {
-    throw error
+    throw error;
+  }
+}
+
+export async function logOut() {
+  try {
+    const res = await api.post("/api/auth/logout");
+    return res.data;
+  } catch (error) {
+    throw error;
   }
 }
