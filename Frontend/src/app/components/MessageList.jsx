@@ -1,9 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import MessageBubble from "./MessageBubble.jsx";
 
 const MessageList = () => {
   const { selectedConversation } = useSelector((state) => state.conversation);
   const { messages } = useSelector((state) => state.messages);
+
+  console.log(messages);
+  
   return (
     <div className="flex-1 overflow-y-auto px-6 py-6 space-y-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {messages?.length === 0 || !selectedConversation ? (
@@ -21,16 +25,32 @@ const MessageList = () => {
             </p>
           </div>
           <div>
-            {["What is React Router DOM", "Explain Redis", "Build a dashboard"].map(
-              (elem, i) => (
-                <button className="text-[12px] text-slate-400 bg-white/[0.04] border-white/[0.07] px-3 py-1.5 rounded-lg hover:bg-white/[0.08] hover:text-slate-200 transition-colors duration-150 m-1.5 cursor-pointer" key={i}>{elem}</button>
-              ),
-            )}
+            {[
+              "What is React Router DOM",
+              "Explain Redis",
+              "Build a dashboard",
+            ].map((elem, i) => (
+              <button
+                className="text-[12px] text-slate-400 bg-white/[0.04] border-white/[0.07] px-3 py-1.5 rounded-lg hover:bg-white/[0.08] hover:text-slate-200 transition-colors duration-150 m-1.5 cursor-pointer"
+                key={i}
+              >
+                {elem}
+              </button>
+            ))}
           </div>
         </div>
       ) : (
         <div>
-          <h1>hello</h1>
+          {messages.map((mes, i) => {
+            return (
+              <div key={i}>
+                <MessageBubble
+                  role={mes?.role}
+                  content={mes?.content}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

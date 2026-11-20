@@ -4,8 +4,8 @@ import { Annotation } from "@langchain/langgraph";
 export const agentState = Annotation.Root({
   // FOR USER PROMPT
   prompt: Annotation(),
-  // FOR AI RESPONCE
-  aiResponce: Annotation(),
+  // FOR AI RESPONSE
+  aiResponse: Annotation(),
   // FOR AGENT
   agent: Annotation(),
   // FOR CONVERSATION ID

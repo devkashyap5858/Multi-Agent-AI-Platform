@@ -1,4 +1,4 @@
-import { getModel } from "../config/llmModles.js";
+import { getModel } from "../config/llmModels.js";
 
 // CHAT AGENT
 export async function chatAgent(state) {
@@ -30,20 +30,20 @@ You are an intelligent, friendly, and helpful AI assistant focused exclusively o
 Deliver accurate, natural, helpful, and context-aware conversations.
   `;
 
-  // MODLE INVOKE
-  const responce = await llm.invoke([
+  // MODEL INVOKE
+  const response = await llm.invoke([
     {
       role: "system",
       content: systemPrompt,
     },
     {
-      role: "human",
+      role: "user",
       content: state.prompt,
     },
   ]);
 
   return {
     ...state,
-    aiResponce: responce.content,
+    aiResponse: response.content,
   };
 }

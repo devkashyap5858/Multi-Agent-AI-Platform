@@ -1,7 +1,7 @@
 import React from "react";
 import ChatNavBar from "./ChatNavBar";
 import MessageList from "./MessageList";
-import { ChatInpu } from "./ChatInpu.jsx";
+import { Chatinput } from "./ChatInput.jsx";
 
 
 const ChatArea = () => {
@@ -9,7 +9,7 @@ const ChatArea = () => {
     <div className="flex-1 flex flex-col">
       <ChatNavBar />
       <MessageList />
-      <ChatInpu />
+      <Chatinput />
     </div>
   );
 };

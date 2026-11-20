@@ -1,4 +1,4 @@
-import { getModel } from "../config/llmModles.js";
+import { getModel } from "../config/llmModels.js";
 
 // ROUTER FUNCTION => RETURN AGENT => {chat, coding, imageGen, pdf, ppt, search}
 export async function router(state) {
@@ -94,18 +94,20 @@ Responsibilities:
 - pdf
 - vision
 `;
-  // MODLE INVOKE
-  const responce = await llm.invoke([
+  // MODEL INVOKE
+  const response = await llm.invoke([
     {
       role: "system",
       content: systemPrompt,
     },
+    {
+      role: "user",
+      content: state.prompt,
+    },
   ]);
-
-  console.log(responce);
 
   return {
     ...state,
-    agent: responce.content.trim().toLowerCase(),
+    agent: response.content.trim().toLowerCase(),
   };
 }

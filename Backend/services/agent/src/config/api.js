@@ -1,13 +1,15 @@
+import dotenv from "dotenv"
+dotenv.config()
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.CHAT_SERVICS,
+  baseURL: process.env.CHAT_SERVICE,
   withCredentials: true,
 });
 
 export async function saveMessage(conversationID, role, content) {
   try {
-    const res = await api.post("/api/chat/save-message", {
+    const res = await api.post("/save-message", {
       conversationID,
       role,
       content,

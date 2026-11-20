@@ -29,6 +29,9 @@ app.use("/api/auth", proxy(process.env.AUTH_SERVICE));
 // CHAT SERVICE
 app.use("/api/chat", authMiddleware, proxyWithHeder(process.env.CHAT_SERVICE));
 
+// AGENT SERVICE
+app.use("/api/agent", proxy(process.env.AGENT_SERVICE));
+
 // FOR GET USER INFO
 app.use("/api/getme", authMiddleware, getMe);
 

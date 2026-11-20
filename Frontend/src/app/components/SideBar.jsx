@@ -135,7 +135,7 @@ const Sidebar = () => {
         </div>
         <div className="px-4 pt-4 pb-1">
           <button
-            className="w-full flex items-center justify-center gap-2 text-sm font-medium text-white bg-[#2509af] rounded-xl py-[10px] border-none cursor-pointer hover:opacity-90 transition-opacity duration-150"
+            className="w-full flex items-center justify-center gap-2 text-sm font-medium text-white bg-linear-to-b from-indigo-500 to-violet-700 hover:opacity-90 rounded-xl py-[10px] border-none cursor-pointer transition-opacity duration-150"
             onClick={() => {
               handleCreateConversation();
             }}

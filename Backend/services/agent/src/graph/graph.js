@@ -9,6 +9,7 @@ import { imageGenAgent } from "../agents/imageGen.agent.js";
 
 const workFlow = new StateGraph(agentState);
 
+// ALL NODES
 workFlow.addNode("router", router);
 workFlow.addNode("chat", chatAgent);
 workFlow.addNode("coding", chatAgent);
@@ -17,24 +18,32 @@ workFlow.addNode("ppt", pptAgent);
 workFlow.addNode("search", searchAgent);
 workFlow.addNode("vision", imageGenAgent);
 
+// STARTING EDGE
 workFlow.addEdge("__start__", "router");
 
+// CONDITIONAL EDGE
 workFlow.addConditionalEdges(
   "router",
   (state) => {
     switch (state.agent) {
-      case chat:
+      case "chat":
         return "chat";
-      case coding:
+
+      case "coding":
         return "coding";
-      case pdf:
+
+      case "pdf":
         return "pdf";
-      case search:
+
+      case "search":
         return "search";
-      case ppt:
+
+      case "ppt":
         return "ppt";
-      case vision:
+
+      case "vision":
         return "vision";
+
       default:
         return "chat";
     }
@@ -49,6 +58,7 @@ workFlow.addConditionalEdges(
   },
 );
 
+// ALL EDGES
 workFlow.addEdge("search", "chat");
 workFlow.addEdge("chat", "__end__");
 workFlow.addEdge("coding", "__end__");
