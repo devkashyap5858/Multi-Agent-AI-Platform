@@ -27,9 +27,11 @@ export async function getConversation(req, res) {
     const userID = req.headers["x-user-id"];
 
     // GET ALL CONVERSATION OF USER
-    const allConversation = await conversationModel.find({
-      user: userID,
-    }).sort({ updatedAt: -1 });
+    const allConversation = await conversationModel
+      .find({
+        user: userID,
+      })
+      .sort({ updatedAt: -1 });
 
     res
       .status(200)
@@ -54,5 +56,21 @@ export async function saveMessage(req, res) {
       .json({ message: "Message Save Successfully", message });
   } catch (error) {
     return res.status(500).json({ message: "Message Save Error", error });
+  }
+}
+
+export async function getMessages(req, res) {
+  try {
+    const { conversationId } = req.params;
+
+    const allMessages = await messageModel.find({
+      conversationID: conversationId,
+    });
+
+    res
+      .status(200)
+      .json({ message: "Messages Fetched  Successfully", allMessages });
+  } catch (error) {
+    return res.status(500).json({ message: "Get Messages Error", error });
   }
 }

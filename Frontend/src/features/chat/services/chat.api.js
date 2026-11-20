@@ -17,3 +17,12 @@ export async function getConversation() {
     throw error;
   }
 }
+
+export async function getMessages(conversationId) {
+  try {
+    const res = await api.get(`/api/chat/get-messages/${conversationId}`);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+}

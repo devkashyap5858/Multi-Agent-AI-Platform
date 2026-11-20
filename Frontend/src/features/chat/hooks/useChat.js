@@ -1,10 +1,15 @@
 import { useDispatch } from "react-redux";
-import { createConversation, getConversation } from "../services/chat.api.js";
+import {
+  createConversation,
+  getConversation,
+  getMessages,
+} from "../services/chat.api.js";
 import {
   addConversation,
   setConversation,
   setSelectConversation,
 } from "../../../app/redux/conversation.slice.js";
+import { setMessages } from "../../../app/redux/messages.slice.js";
 
 export function useChat() {
   const dispatch = useDispatch();
@@ -26,10 +31,21 @@ export function useChat() {
       dispatch(setConversation(data.allConversation));
       return data;
     } catch (error) {
-      console.log(error);
+      throw error;
       return [];
     }
   }
 
-  return { handleCreateConversation, handleGetConversation };
+  async function handleGetMessages(conversationId) {
+    try {
+      const data = await getMessages(conversationId);
+      dispatch(setMessages(data.allMessages));
+      console.log(data);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  return { handleCreateConversation, handleGetConversation, handleGetMessages };
 }

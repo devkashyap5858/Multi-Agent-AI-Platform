@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../../app/redux/auth.slice.js";
 import { login, getMe, logOut } from "../services/auth.api.js";
-import { User } from "lucide-react";
 import {
   setConversation,
   setSelectConversation,
@@ -23,7 +22,6 @@ export function useAuth() {
   async function handleLogin(token) {
     try {
       const data = await login(token);
-      await handleGetMe();
       return data;
     } catch (error) {
       throw error;
