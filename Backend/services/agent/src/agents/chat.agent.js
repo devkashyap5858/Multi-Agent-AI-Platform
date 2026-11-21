@@ -1,9 +1,16 @@
+import {
+  AIMessage,
+  HumanMessage,
+  SystemMessage,
+} from "@langchain/core/messages";
 import { getModel } from "../config/llmModels.js";
+import { getMemory } from "../config/memory.js";
 
 // CHAT AGENT
 export async function chatAgent(state) {
   // MODEL GET
   const llm = await getModel("chat");
+
   // SYSTEM PROMPT
   const systemPrompt = `# ROLE: Chat Agent
 
@@ -30,18 +37,29 @@ You are an intelligent, friendly, and helpful AI assistant focused exclusively o
 Deliver accurate, natural, helpful, and context-aware conversations.
   `;
 
-  // MODEL INVOKE
-  const response = await llm.invoke([
-    {
-      role: "system",
-      content: systemPrompt,
-    },
-    {
-      role: "user",
-      content: state.prompt,
-    },
-  ]);
+  // GET CONVERSATION HISTORY
+  const history = await getMemory(state.conversationID);
 
+  // PREPARE MESSAGES
+  const messages = [new SystemMessage(systemPrompt)];
+
+  // RESTORE PREVIOUS CONVERSATION
+  history.forEach((msg) => {
+    if (msg.role === "user") {
+      messages.push(new HumanMessage(msg.content));
+    }
+    if (msg.role === "agent") {
+      messages.push(new AIMessage(msg.content));
+    }
+  });
+
+  // ADD CURRENT USER PROMPT
+  messages.push(new HumanMessage(state.prompt));
+
+  // MODEL INVOKE
+  const response = await llm.invoke(messages);
+
+  // RETURN UPDATED STATE
   return {
     ...state,
     aiResponse: response.content,

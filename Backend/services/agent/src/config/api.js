@@ -1,5 +1,5 @@
-import dotenv from "dotenv"
-dotenv.config()
+import dotenv from "dotenv";
+dotenv.config();
 import axios from "axios";
 
 const api = axios.create({
@@ -15,6 +15,15 @@ export async function saveMessage(conversationID, role, content) {
       content,
     });
     return res.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getMessages(conversationId) {
+  try {
+    const res = await api.get(`/get-messages/${conversationId}`);
+    return res.data
   } catch (error) {
     throw error;
   }
